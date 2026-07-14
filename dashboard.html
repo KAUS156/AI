@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard | NexArt AI</title>
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --bg-dark: #09090b;
+            --card-dark: #141417;
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --primary-purple: #6366f1;
+            --text-muted: #a1a1aa;
+        }
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-dark);
+            color: #fff;
+            display: flex;
+            min-height: 100vh;
+        }
+        .sidebar {
+            width: 260px;
+            background-color: #0c0c0e;
+            border-right: 1px solid var(--border-glass);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 32px 20px;
+        }
+        .logo { font-size: 1.5rem; font-weight: 700; text-decoration: none; color: #fff; }
+        .logo span { color: var(--primary-purple); }
+        .nav-links { list-style: none; padding: 0; margin: 40px 0 0 0; flex-grow: 1; }
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 14px 16px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        .nav-item.active a, .nav-item a:hover {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+        }
+        .profile-card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-glass);
+            padding: 16px;
+            border-radius: 16px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .profile-info h4 { margin: 0; font-size: 0.95rem; }
+        .profile-info p { margin: 4px 0 0 0; font-size: 0.8rem; color: #22c55e; }
+        .logout-icon-btn { background: none; border: none; color: #ef4444; cursor: pointer; font-size: 1.2rem; }
+
+        .main-content { flex-grow: 1; padding: 40px; display: flex; flex-direction: column; }
+        
+        /* सेक्शन्स को हाइड और शो करने के लिए */
+        .app-section { display: none; flex-direction: column; flex-grow: 1; }
+        .app-section.active-section { display: flex; }
+
+        .header-area { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; }
+        .header-area h1 { font-size: 1.75rem; font-weight: 700; margin: 0; }
+        .credit-badge {
+            background-color: rgba(99, 102, 241, 0.1);
+            border: 1px solid rgba(99, 102, 241, 0.2);
+            color: var(--primary-purple);
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .studio-grid { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 32px; flex-grow: 1; }
+        .controls-panel {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-glass);
+            border-radius: 24px;
+            padding: 32px;
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+        .input-group { display: flex; flex-direction: column; gap: 8px; }
+        .input-group label { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+        textarea, input[type="text"] {
+            background-color: #1a1a1e;
+            border: 1px solid var(--border-glass);
+            border-radius: 14px;
+            color: #fff;
+            padding: 16px;
+            font-family: inherit;
+            font-size: 0.95rem;
+        }
+        textarea { height: 120px; resize: none; }
+        .row-inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        select {
+            background-color: #1a1a1e;
+            border: 1px solid var(--border-glass);
+            border-radius: 12px;
+            color: #fff;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .btn-primary {
+            background-color: var(--primary-purple);
+            color: #fff;
+            border: none;
+            padding: 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+        .btn-secondary {
+            background-color: rgba(255,255,255,0.05);
+            color: #fff;
+            border: 1px solid var(--border-glass);
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 16px;
+            display: none;
+            width: 100%;
+        }
+
+        .preview-panel {
+            background-color: #0e0e11;
+            border: 2px dashed var(--border-glass);
+            border-radius: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            padding: 20px;
+        }
+        .preview-panel img { max-width: 100%; max-height: 70vh; border-radius: 16px; object-fit: contain; display: none; }
+        .placeholder-text { color: #52525b; font-size: 0.95rem; text-align: center; }
+        
+        .error-box {
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            color: #ef4444;
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            display: none;
+        }
+        .loader {
+            border: 4px solid rgba(255,255,255,0.05);
+            border-top: 4px solid var(--primary-purple);
+            border-radius: 50%;
+            width: 44px;
+            height: 44px;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+
+        /* हिस्ट्री और प्लांस के लिए साधारण कार्ड्स स्टाइल */
+        .info-card {
+            background-color: var(--card-dark);
+            border: 1px solid var(--border-glass);
+            padding: 24px;
+            border-radius: 16px;
+            margin-bottom: 16px;
+        }
+        .plans-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 20px; }
+        .plan-card {
+            background: #18181b;
+            border: 1px solid var(--border-glass);
+            padding: 32px;
+            border-radius: 20px;
+            text-align: center;
+        }
+        .plan-card.premium { border-color: var(--primary-purple); background: rgba(99, 102, 241, 0.03); }
+        .plan-price { font-size: 2rem; font-weight: 700; margin: 16px 0; color: #fff; }
+    </style>
+</head>
+<body>
+
+    <!-- साइडबार पैनल -->
+    <div class="sidebar">
+        <div>
+            <a href="index.html" class="logo">NexArt <span>AI</span></a>
+            <ul class="nav-links">
+                <li class="nav-item active" data-target="image-gen-section"><a>🎨 AI Image Gen</a></li>
+                <li class="nav-item" data-target="video-gen-section"><a>🎬 AI Video Gen</a></li>
+                <li class="nav-item" data-target="history-section"><a>⏳ History</a></li>
+                <li class="nav-item" data-target="upgrade-section"><a>👑 Upgrade Plan</a></li>
+            </ul>
+        </div>
+
+        <!-- एक्टिव यूजर कार्ड -->
+        <div class="profile-card">
+            <div class="profile-info">
+                <h4 id="dashboardUserName">Kaushal Kumar</h4>
+                <p>⚡ 45 Credits Left</p>
+            </div>
+            <button class="logout-icon-btn" id="logoutBtn">➔</button>
+        </div>
+    </div>
+
+    <!-- मुख्य कंटेंट एरिया -->
+    <div class="main-content">
+
+        <!-- 1. AI IMAGE GEN SECTION -->
+        <div id="image-gen-section" class="app-section active-section">
+            <div class="header-area">
+                <h1>AI Image Generation Studio</h1>
+                <div class="credit-badge">Cost: 1 Credit</div>
+            </div>
+            <div class="studio-grid">
+                <div class="controls-panel">
+                    <div class="input-group">
+                        <label for="promptInput">AI Prompt</label>
+                        <textarea id="promptInput" placeholder="Describe your masterpiece here..."></textarea>
+                    </div>
+                    <div class="row-inputs">
+                        <div class="input-group">
+                            <label for="styleSelect">Model Style</label>
+                            <select id="styleSelect">
+                                <option value="Cinematic 8K">Cinematic 8K 🎬</option>
+                                <option value="Anime Style">Anime ✨</option>
+                                <option value="Cyberpunk Neon">Cyberpunk 🦾</option>
+                                <option value="Fantasy Concept">Fantasy 🧝‍♂️</option>
+                                <option value="Oil Painting">Oil Painting 🎨</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="ratioSelect">Aspect Ratio</label>
+                            <select id="ratioSelect">
+                                <option value="1:1">1:1 (Square)</option>
+                                <option value="16:9">16:9 (Landscape)</option>
+                                <option value="9:16">9:16 (Portrait)</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div id="errorBox" class="error-box"></div>
+                    <button id="generateBtn" class="btn-primary">Generate Image</button>
+                </div>
+                <div class="preview-panel">
+                    <div id="loader" class="loader"></div>
+                    <img id="resultImage" alt="AI Generated Image">
+                    <div id="placeholderText" class="placeholder-text">Your futuristic masterpiece will render here...</div>
+                    <button id="downloadBtn" class="btn-secondary">⬇️ Download Image</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. AI VIDEO GEN SECTION -->
+   <!-- 2. AI VIDEO GEN SECTION -->
+<div id="video-gen-section" class="app-section">
+    <div class="header-area">
+        <h1>AI Video Generation Studio</h1>
+        <div class="credit-badge" id="video-credit-badge">Cost: 5 Credits</div>
+    </div>
+    <div class="studio-grid">
+        <div class="controls-panel">
+            <div class="input-group">
+                <label for="videoPromptInput">Video Prompt</label>
+                <textarea id="videoPromptInput" placeholder="Describe the motion or scene you want to animate... e.g., Cyberpunk car driving in rain, neon lights, 4k loop"></textarea>
+            </div>
+            <div class="input-group">
+                <label for="videoSpeedSelect">Motion Speed</label>
+                <select id="videoSpeedSelect">
+                    <option value="normal">Normal Motion</option>
+                    <option value="fast">Fast / Dynamic</option>
+                    <option value="slow">Slow Motion</option>
+                </select>
+            </div>
+            <div id="videoErrorBox" class="error-box" style="display: none; color: #ef4444; margin-bottom: 10px;"></div>
+            <button id="generateVideoBtn" class="btn-primary">Generate Video</button>
+        </div>
+        
+        <div class="preview-panel" style="position: relative; min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <!-- स्केलेटन लोडर -->
+            <div id="videoLoader" class="loader" style="display: none;"></div>
+            
+            <!-- वर्किंग पब्लिक CDN वीडियो प्लेयर -->
+            <video id="resultVideo" autoplay loop muted playsinline width="100%" style="border-radius: 16px; object-fit: contain; background-color: #000;">
+                <source src="https://player.vimeo.com/external/371433846.sd.mp4?s=236da2f3c0227e8d780a1152a5bd30d07469b52a&profile_id=165&oauth2_token_id=57447761" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            
+            <button id="downloadVideoBtn" class="btn-secondary" style="margin-top: 15px; display: block;">⬇️ Download Video</button>
+        </div>
+    </div>
+</div> 
+        <!-- 3. HISTORY SECTION -->
+        <div id="history-section" class="app-section">
+            <div class="header-area">
+                <h1>Your Generation History</h1>
+            </div>
+            <div class="info-card">
+                <h3>Recent Activity Log</h3>
+                <p style="color: var(--text-muted)">Your generated assets will be stored locally here.</p>
+                <div style="border-top: 1px solid var(--border-glass); margin-top: 16px; padding-top: 16px; text-align: center; color: #52525b;">
+                    No previous history found. Start creating!
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. UPGRADE PLAN SECTION -->
+      <!-- एक्टिव यूजर कार्ड -->
+<div class="profile-card">
+    <div class="profile-info">
+        <h4 id="dashboardUserName">Kaushal Kumar</h4>
+        <p class="user-credits-text">⚡ 45 Credits Left</p> <!-- यहाँ क्लास अपने आप काम करेगी -->
+    </div>
+    <button class="logout-icon-btn" id="logoutBtn">➔</button>
+</div>
+
+   <!-- स्क्रिप्ट्स की सही मैपिंग -->
+    <script type="module" src="js/auth.js"></script> <!-- इसे type="module" किया गया है -->
+    <script src="js/app.js"></script>
+    <script src="js/download.js"></script>
+    <script src="js/video.js"></script>
+    <script type="module" src="js/image.js"></script>
+</body>
+    
+    <!-- साइडबार टैब स्विच करने के लिए आवश्यक स्क्रिप्ट -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const navItems = document.querySelectorAll(".nav-links .nav-item");
+            const sections = document.querySelectorAll(".app-section");
+
+            navItems.forEach(item => {
+                item.addEventListener("click", () => {
+                    // 1. एक्टिव क्लास को मेनू से हटाना और नए पर लगाना
+                    navItems.forEach(nav => nav.classList.remove("active"));
+                    item.classList.add("active");
+
+                    // 2. पुराने एक्टिव सेक्शन को छुपाना और नए को दिखाना
+                    const targetSectionId = item.getAttribute("data-target");
+                    sections.forEach(sec => {
+                        sec.classList.remove("active-section");
+                        if (sec.id === targetSectionId) {
+                            sec.classList.add("active-section");
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

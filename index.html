@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>NexArt AI | Premium AI Image & Video Generator</title>
+    <meta name="description" content="Generate high-quality AI images and cinematic AI videos instantly. Experience the next generation of AI art creation with Midjourney & ChatGPT style UI.">
+    <meta name="keywords" content="AI image generator, AI video generator, text to image, AI art, premium AI tool, text to video">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://yourdomain.com/">
+
+    <!-- Open Graph SEO -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://yourdomain.com/">
+    <meta property="og:title" content="NexArt AI | Premium AI Image & Video Generator">
+    <meta property="og:description" content="Create stunning visuals with our premium AI tool. Dark mode, fast loading, and fully responsive.">
+    <meta property="og:image" content="https://yourdomain.com/assets/og-preview.jpg">
+
+    <!-- Twitter SEO -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="NexArt AI | Premium AI Image & Video Generator">
+    <meta property="twitter:description" content="Create stunning visuals with our premium AI tool.">
+    <meta property="twitter:image" content="https://yourdomain.com/assets/og-preview.jpg">
+
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header class="navbar glass-effect">
+        <div class="nav-container">
+            <a href="index.html" class="logo">NexArt <span>AI</span></a>
+            <nav class="nav-links">
+                <a href="#features">Features</a>
+                <a href="#image-gen">AI Image</a>
+                <a href="#video-gen">AI Video</a>
+                <a href="pricing.html">Pricing</a>
+            </nav>
+            <div class="nav-auth">
+                <a href="login.html" class="btn-secondary">Login</a>
+                <a href="dashboard.html" class="btn-primary">Dashboard</a>
+            </div>
+            <button class="mobile-menu-btn" aria-label="Toggle Menu" onclick="toggleMobileMenu()">⚡</button>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero-section">
+            <div class="hero-glow"></div>
+            <div class="container text-center">
+                <span class="badge">Next-Gen AI Platform</span>
+                <h1>Imagine. Generate. <br><span class="text-gradient">Create in Seconds.</span></h1>
+                <p class="hero-subtitle">Bring your wildest imaginations to life with Apple-grade UI and bleeding-edge AI models for Images & Videos.</p>
+                <div class="hero-cta">
+                    <a href="#image-gen" class="btn-primary btn-large">Start Generating Free</a>
+                    <a href="#video-gen" class="btn-secondary btn-large">Explore AI Video</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="image-gen" class="generator-section container">
+            <div class="section-header">
+                <h2>AI Image Generator</h2>
+                <p>Turn text prompt into hyper-realistic masterpieces</p>
+            </div>
+            
+            <div class="generator-grid glass-card">
+                <div class="controls-panel">
+                    <div class="input-group">
+                        <label for="img-prompt">Enter Prompt</label>
+                        <!-- ID Changed to align with modular script targeting -->
+                        <textarea id="prompt-box" placeholder="A futuristic cyberpunk city covered in neon rain, cinematic lighting, 8k resolution, highly detailed..."></textarea>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-group">
+                            <label for="img-style">Style</label>
+                            <select id="style-select">
+                                <option value="photorealistic">Photorealistic</option>
+                                <option value="anime">Anime / Manga</option>
+                                <option value="3d-render">3D Digital Art</option>
+                                <option value="cyberpunk">Cyberpunk</option>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label for="img-ratio">Aspect Ratio</label>
+                            <select id="img-ratio">
+                                <option value="1:1">1:1 Square</option>
+                                <option value="16:9">16:9 Cinematic</option>
+                                <option value="9:16">9:16 Portrait</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- ID updated to match dashboard handler mapping for unified code usage -->
+                    <button class="btn-primary btn-full" id="generate-btn">Generate Masterpiece</button>
+                </div>
+                
+                <div class="preview-panel">
+                    <div class="output-placeholder" id="result-display">
+                        <p>Your AI generated artwork will appear here</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer-grid">
+            <p>&copy; 2026 NexArt AI. All rights reserved.</p>
+            <div class="footer-links">
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms of Service</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- 🛠️ CRITICAL FIX: Script tags re-ordered and typed as module to allow imports -->
+    <script src="js/download.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/image.js"></script>
+</body>
+</html>

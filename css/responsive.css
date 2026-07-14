@@ -1,0 +1,33 @@
+@media (max-width: 768px) {
+    .dashboard-layout {
+        flex-direction: column-reverse; /* Sidebar can acts as bottom bar if needed */
+    }
+    
+    .sidebar {
+        width: 100%;
+        height: auto;
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        z-index: 1000;
+        padding: 12px;
+        flex-direction: row;
+        border-right: none;
+        border-top: 1px solid var(--border-glass);
+    }
+
+    .sidebar-brand, .sidebar-user { display: none; } /* Hide extra on tiny screens */
+    
+    .sidebar-menu {
+        flex-direction: row;
+        justify-content: space-around;
+        width: 100%;
+        margin-top: 0;
+    }
+    
+    .workspace {
+        margin-left: 0;
+        width: 100%;
+        padding: 20px 20px 100px 20px; /* Space added bottom for nav clear */
+    }
+}

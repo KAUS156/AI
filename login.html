@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login | NexArt AI</title>
+    <meta name="robots" content="noindex, nofollow">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        .auth-container { min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 24px; }
+        .auth-card { width: 100%; max-width: 420px; padding: 40px 32px; }
+        .auth-header { text-align: center; margin-bottom: 32px; }
+        .auth-header h1 { font-size: 1.8rem; font-weight: 700; margin-top: 12px; }
+        .google-btn { background: #fff; color: #000; width: 100%; padding: 12px; border-radius: 12px; border: none; font-weight: 600; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; transition: opacity 0.2s; }
+        .google-btn:hover { opacity: 0.9; }
+        .divider { display: flex; align-items: center; text-align: center; color: var(--text-secondary); margin-bottom: 24px; font-size: 0.85rem; }
+        .divider::before, .divider::after { content: ''; flex: 1; border-bottom: 1px solid var(--border-glass); }
+        .divider:not(:empty)::before { margin-right: .5em; }
+        .divider:not(:empty)::after { margin-left: .5em; }
+    </style>
+</head>
+<body>
+
+    <div class="auth-container">
+        <div class="glass-card auth-card">
+            <div class="auth-header">
+                <a href="index.html" class="logo">NexArt <span>AI</span></a>
+                <h1>Welcome Back</h1>
+            </div>
+
+            <!-- Google Login -->
+            <button class="google-btn" id="google-login-btn">
+                <img src="https://fonts.gstatic.com/s/i/productlogos/googleg/v6/web-2x/gradient/copy_of_24dp.png" alt="Google" width="18">
+                Continue with Google
+            </button>
+
+            <div class="divider">or continue with email</div>
+
+            <!-- Form Email/Password -->
+            <form id="login-form" class="controls-panel">
+                <div class="input-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" required placeholder="name@domain.com">
+                </div>
+                <div class="input-group">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <label for="login-password">Password</label>
+                        <a href="#" style="font-size: 0.8rem; color: #6366f1; text-decoration: none;">Forgot?</a>
+                    </div>
+                    <input type="password" id="login-password" required placeholder="••••••••">
+                </div>
+                <button type="submit" class="btn-primary btn-full" style="margin-top: 12px;">Sign In</button>
+            </form>
+
+            <p style="text-align: center; margin-top: 24px; font-size: 0.9rem; color: var(--text-secondary);">
+                Don't have an account? <a href="signup.html" style="color: #fff; text-decoration: none; font-weight: 600;">Sign up</a>
+            </p>
+        </div>
+    </div>
+
+    <script type="module" src="js/auth.js"></script>
+</body>
+</html>

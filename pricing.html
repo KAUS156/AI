@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flexible Pricing Plans | NexArt AI</title>
+    <meta name="description" content="Choose a plan that fits your creative needs. Unlock unlimited AI Image and Video generation with our premium pro plans.">
+    
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/responsive.css">
+    <style>
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 32px; margin-top: 60px; }
+        .price-card { padding: 40px 24px; text-align: center; position: relative; }
+        .price-card.popular { border-color: #6366f1; background: rgba(99, 102, 241, 0.05); }
+        .price-tag { font-size: 3rem; font-weight: 800; margin: 20px 0; }
+        .price-tag span { font-size: 1rem; color: var(--text-secondary); }
+        .features-list { list-style: none; padding: 0; margin: 30px 0; text-align: left; }
+        .features-list li { margin-bottom: 12px; color: #cbd5e1; }
+        .features-list li::before { content: "✓ "; color: #10b981; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <section class="container" style="padding: 120px 0;">
+        <div class="text-center">
+            <span class="badge">Simple Pricing</span>
+            <h1 style="font-size: 3rem; margin-top: 10px;">Plans for Creators of <span class="text-gradient">All Sizes</span></h1>
+            <p style="color: var(--text-secondary); margin-top: 10px;">Get started for free or upgrade to high-speed commercial pipelines.</p>
+        </div>
+
+        <div class="pricing-grid">
+            <div class="glass-card price-card">
+                <h3>Starter Pack</h3>
+                <div class="price-tag">$0<span>/forever</span></div>
+                <ul class="features-list">
+                    <li>50 Credits / month</li>
+                    <li>Standard generation speeds</li>
+                    <li>Community support</li>
+                </ul>
+                <a href="signup.html" class="btn-secondary btn-full" style="display: block; text-align: center;">Get Started</a>
+            </div>
+
+            <div class="glass-card price-card popular">
+                <div style="position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #6366f1; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: bold;">MOST POPULAR</div>
+                <h3>Pro Creator</h3>
+                <div class="price-tag">$29<span>/month</span></div>
+                <ul class="features-list">
+                    <li>Unlimited High-Speed Images</li>
+                    <li>500 Video Generation Credits</li>
+                    <li>Commercial Usage License</li>
+                    <li>Priority GPU Access</li>
+                </ul>
+                <button class="btn-primary btn-full" onclick="payWithRazorpay(2900)">Upgrade to Pro</button>
+            </div>
+        </div>
+    </section>
+
+</body>
+</html>
